@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FFFFFF" />
+<title>Marco Sager — Founder & CEO · Dreamkey Media</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@500;600;700&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js"></script>
+<style>
+  :root {
+    --navy: #263056;
+    --navy-deep: hsl(225, 35%, 15%);
+    --gold: #D4AF37;
+    --gold-light: hsl(45, 75%, 58%);
+    --gold-10: rgba(212, 175, 55, 0.10);
+    --gold-20: rgba(212, 175, 55, 0.22);
+    --gold-glow: rgba(212, 175, 55, 0.35);
+    --bg: #FFFFFF;
+    --surface: hsl(225, 24%, 97%);
+    --surface-soft: hsl(225, 24%, 99%);
+    --fg: var(--navy);
+    --fg-muted: #636B84;
+    --fg-faint: #98A0B5;
+    --border: hsl(225, 18%, 91%);
+    --border-strong: hsl(225, 18%, 85%);
+    --shadow-card: 0 1px 2px rgba(38,48,86,0.04), 0 8px 28px rgba(38,48,86,0.06);
+    --shadow-lift: 0 2px 6px rgba(38,48,86,0.06), 0 18px 44px rgba(38,48,86,0.10);
+    --shadow-gold: 0 8px 24px rgba(212,175,55,0.28);
+    --r-sm: 12px;
+    --r-md: 18px;
+    --r-lg: 24px;
+    --r-xl: 32px;
+    --r-pill: 999px;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --dur: 280ms;
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-thai: "Noto Sans Thai", var(--font);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .backdrop {
+    position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(212,175,55,0.07), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(38,48,86,0.05), transparent 55%),
+      linear-gradient(180deg, #FFFFFF 0%, hsl(225, 22%, 97%) 100%);
+  }
+
+  .page {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--bg);
+    padding: 0 22px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (min-width: 520px) {
+    .page { padding: 36px 20px; }
+    .card {
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-lift);
+      padding: 0 26px 44px;
+    }
+  }
+
+  /* TOP BANNER */
+  .topbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin: 0 -22px 0;
+    padding: 30px 24px 26px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .topbar::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(212,175,55,0.20), transparent 60%);
+    filter: blur(8px);
+    pointer-events: none;
+  }
+  @media (min-width: 520px) {
+    .topbar { margin: 0 -26px 0; border-radius: var(--r-xl) var(--r-xl) 0 0; }
+  }
+  .brand-logo {
+    height: 58px;
+    width: auto;
+    display: block;
+    position: relative;
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,0.25));
+  }
+  .eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    position: relative;
+  }
+  .eyebrow-row .line {
+    flex: 1;
+    max-width: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,175,55,0.45), transparent);
+  }
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: var(--gold);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 28px 4px 0;
+  }
+  .avatar-wrap {
+    position: relative;
+    width: 124px;
+    height: 124px;
+    margin: 0 auto 22px;
+  }
+  .avatar-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light) 50%, var(--gold) 100%);
+    z-index: 0;
+    opacity: 0.95;
+  }
+  .avatar-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: var(--bg);
+    z-index: 1;
+  }
+  .avatar {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .verified {
+    position: absolute;
+    z-index: 3;
+    bottom: 2px;
+    right: 2px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    box-shadow: 0 4px 10px rgba(212,175,55,0.4), 0 0 0 3px var(--bg);
+    display: grid;
+    place-items: center;
+    color: var(--navy);
+  }
+  .verified svg { width: 16px; height: 16px; }
+
+  .name-en {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 12px;
+  }
+  .role {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 7px 14px 7px 10px;
+    border-radius: var(--r-pill);
+    margin-bottom: 18px;
+  }
+  .role .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+  .role .sep { color: var(--fg-faint); font-weight: 400; }
+  .role .co { color: var(--fg-muted); font-weight: 500; }
+
+  .intro {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--fg-muted);
+    max-width: 330px;
+    margin: 0 auto;
+    text-wrap: pretty;
+  }
+
+  /* FEATURED CTA */
+  .featured {
+    display: block;
+    margin-top: 26px;
+    border-radius: var(--r-lg);
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    text-decoration: none;
+    box-shadow: var(--shadow-card);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(212,175,55,0.18);
+  }
+  .featured:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+  .featured:active { transform: scale(0.99); }
+  .featured-inner {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+  }
+  .featured-inner::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(212,175,55,0.22), transparent 65%);
+    pointer-events: none;
+  }
+  .featured-icon {
+    width: 44px; height: 44px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    display: grid; place-items: center;
+    color: var(--navy);
+    box-shadow: 0 6px 16px rgba(212,175,55,0.35);
+    position: relative;
+  }
+  .featured-icon svg { width: 22px; height: 22px; }
+  .featured-body { min-width: 0; position: relative; }
+  .featured-kicker {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .featured-title {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .featured-sub {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 3px;
+  }
+  .featured-arrow {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(212,175,55,0.14);
+    border: 1px solid rgba(212,175,55,0.3);
+    display: grid; place-items: center;
+    color: var(--gold);
+    position: relative;
+    transition: all var(--dur) var(--ease);
+  }
+  .featured:hover .featured-arrow { background: var(--gold); color: var(--navy); transform: translateX(2px); }
+  .featured-arrow svg { width: 16px; height: 16px; }
+
+  /* QUICK ACTIONS */
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-top: 14px;
+    padding: 14px 6px;
+    background: var(--surface);
+    border-radius: var(--r-lg);
+  }
+  .action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--r-sm);
+    text-decoration: none;
+    color: var(--fg);
+    font-family: inherit;
+    transition: transform var(--dur) var(--ease);
+  }
+  .action:hover { transform: translateY(-2px); }
+  .action:active { transform: scale(0.96); }
+  .action .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: var(--bg);
+    box-shadow: 0 1px 2px rgba(38,48,86,0.06), 0 4px 10px rgba(38,48,86,0.06);
+    color: var(--navy);
+    transition: all var(--dur) var(--ease);
+  }
+  .action.primary .icon {
+    background: linear-gradient(135deg, var(--navy), var(--navy-deep));
+    color: var(--gold);
+    box-shadow: 0 6px 14px rgba(38,48,86,0.22);
+  }
+  .action.line .icon { background: #06C755; color: #fff; box-shadow: 0 4px 10px rgba(6,199,85,0.28); }
+  .action.whatsapp .icon { background: #25D366; color: #fff; box-shadow: 0 4px 10px rgba(37,211,102,0.28); }
+  .action .icon svg { width: 20px; height: 20px; }
+  .action .label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--fg-muted);
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .action:hover .label { color: var(--navy); }
+
+  /* SECTION SCAFFOLD */
+  .section { margin-top: 34px; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding: 0 2px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--fg-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin: 0;
+  }
+  .section-meta {
+    font-size: 11px;
+    color: var(--fg-faint);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .section-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+
+  /* TRUST CARD */
+  .trust {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: #fff;
+    border-radius: var(--r-lg);
+    padding: 24px 22px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .trust::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(212,175,55,0.22), transparent 60%);
+    filter: blur(8px);
+    pointer-events: none;
+  }
+  .trust-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .trust-logo {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+  .trust-headline {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.28;
+    letter-spacing: -0.015em;
+    color: #fff;
+    margin: 0 0 10px;
+    position: relative;
+    text-wrap: balance;
+  }
+  .trust-headline .gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+    font-weight: 700;
+  }
+  .trust-line {
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.72);
+    margin: 0 0 18px;
+    position: relative;
+    text-wrap: pretty;
+  }
+  .trust-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.10);
+    position: relative;
+  }
+  .trust-stats > div { padding: 0 4px; position: relative; }
+  .trust-stats > div + div::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px; bottom: 6px;
+    width: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    line-height: 1.3;
+  }
+
+  /* SERVICES */
+  .services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .service {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 16px 14px;
+    transition: all var(--dur) var(--ease);
+    cursor: default;
+    position: relative;
+  }
+  .service:hover {
+    border-color: var(--gold-20);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+  .service .tile {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    display: grid;
+    place-items: center;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 10px rgba(212,175,55,0.18);
+  }
+  .service .tile svg { width: 18px; height: 18px; }
+  .service h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0 0 4px;
+    letter-spacing: -0.005em;
+  }
+  .service p {
+    font-size: 12px;
+    color: var(--fg-muted);
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  /* QR CARD */
+  .qr-card {
+    background: linear-gradient(180deg, var(--surface-soft), var(--surface));
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 24px 22px 20px;
+    text-align: center;
+  }
+  .qr-frame {
+    width: 168px;
+    height: 168px;
+    margin: 0 auto 14px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 12px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+  .qr-frame canvas, .qr-frame img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    border-radius: 6px;
+  }
+  .qr-corner {
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 2px solid var(--gold);
+  }
+  .qr-corner.tl { top: 4px; left: 4px; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
+  .qr-corner.tr { top: 4px; right: 4px; border-left: none; border-bottom: none; border-top-right-radius: 6px; }
+  .qr-corner.bl { bottom: 4px; left: 4px; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
+  .qr-corner.br { bottom: 4px; right: 4px; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
+
+  .qr-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0 0 4px;
+    letter-spacing: -0.005em;
+  }
+  .qr-sub {
+    font-size: 12px;
+    color: var(--fg-muted);
+    margin: 0 0 14px;
+  }
+  .qr-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    padding: 9px 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--dur) var(--ease);
+    font-family: inherit;
+  }
+  .qr-cta:hover { border-color: var(--gold); color: var(--navy); box-shadow: var(--shadow-card); transform: translateY(-1px); }
+  .qr-cta svg { width: 14px; height: 14px; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 32px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .footer-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--fg-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-bottom: 10px;
+  }
+  .footer-key .line { width: 24px; height: 1px; background: var(--border-strong); }
+  .footer-copy {
+    font-size: 11px;
+    color: var(--fg-faint);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .footer-copy a {
+    color: var(--fg-muted);
+    text-decoration: none;
+  }
+  .footer-copy a:hover { color: var(--gold); }
+
+  @keyframes rise {
+    from { transform: translateY(8px); }
+    to   { transform: translateY(0); }
+  }
+  .hero, .featured, .actions, .section, .footer {
+    animation: rise 500ms var(--ease) both;
+  }
+  .featured { animation-delay: 60ms; }
+  .actions { animation-delay: 100ms; }
+  .section:nth-of-type(1) { animation-delay: 150ms; }
+  .section:nth-of-type(2) { animation-delay: 200ms; }
+  .section:nth-of-type(3) { animation-delay: 250ms; }
+  .footer { animation-delay: 300ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="backdrop"></div>
+
+<main class="page">
+  <article class="card" id="card">
+
+    <!-- Top banner -->
+    <div class="topbar">
+      <img class="brand-logo" src="assets/dreamkey-logo-transparent.png" alt="Dreamkey Media" />
+      <div class="eyebrow-row">
+        <span class="line"></span>
+        <span class="eyebrow">Hospitality Growth Systems</span>
+        <span class="line"></span>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="avatar-wrap">
+        <div class="avatar">
+          <img src="assets/marco-avatar.jpg" alt="Marco Sager — Dreamkey Media" />
+        </div>
+        <div class="verified" aria-label="Verified">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div>
+
+      <h1 class="name-en">Marco Sager</h1>
+
+      <div class="role">
+        <span class="dot"></span>
+        Founder &amp; CEO
+        <span class="sep">·</span>
+        <span class="co">Dreamkey Media</span>
+      </div>
+
+      <p class="intro">25+ years in hospitality, nightlife, and marketing in Thailand — built into one growth system for venues and brands.</p>
+    </header>
+
+    <!-- FEATURED CTA -->
+    <a class="featured" href="https://hostpitality.dreamkeymedia.net/" target="_blank" rel="noopener">
+      <div class="featured-inner">
+        <span class="featured-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </span>
+        <span class="featured-body">
+          <span class="featured-kicker">See the system</span>
+          <span class="featured-title">Growth Systems for Hospitality Brands</span>
+          <span class="featured-sub">Content · Marketing · Automation — as one system</span>
+        </span>
+        <span class="featured-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- QUICK ACTIONS -->
+    <nav class="actions" aria-label="Contact actions">
+      <button class="action primary" id="save-contact" type="button">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+        </span>
+        <span class="label">Save</span>
+      </button>
+
+      <a class="action" href="tel:+66970752722">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        <span class="label">Call</span>
+      </a>
+
+      <a class="action whatsapp" href="https://wa.me/66970752722" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        </span>
+        <span class="label">WhatsApp</span>
+      </a>
+
+      <a class="action line" href="https://line.me/R/ti/p/@dreamkeymedia" target="_blank" rel="noopener">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 5.842 2 10.582c0 4.245 3.549 7.8 8.34 8.473.325.07.768.214.879.493.1.252.065.648.032.903l-.142.853c-.044.252-.2.987.865.538 1.064-.449 5.747-3.386 7.842-5.797C21.275 14.475 22 12.638 22 10.582 22 5.842 17.523 2 12 2zm-4.084 11.234h-1.99a.42.42 0 0 1-.42-.42v-3.98a.42.42 0 0 1 .42-.42.42.42 0 0 1 .42.42v3.56h1.57a.42.42 0 0 1 0 .84zm1.79-.42a.42.42 0 1 1-.84 0v-3.98a.42.42 0 0 1 .84 0v3.98zm4.85 0a.42.42 0 0 1-.288.4.45.45 0 0 1-.132.02.418.418 0 0 1-.337-.168l-2.04-2.778v2.526a.42.42 0 0 1-.84 0v-3.98a.42.42 0 0 1 .288-.4.4.4 0 0 1 .132-.02c.133 0 .256.062.337.168l2.04 2.78V8.835a.42.42 0 0 1 .84 0v3.98zm3.196-2.41a.42.42 0 0 1 0 .84h-1.57v.99h1.57a.42.42 0 0 1 0 .84h-1.99a.42.42 0 0 1-.42-.42v-3.98a.42.42 0 0 1 .42-.42h1.99a.42.42 0 0 1 0 .84h-1.57v.99h1.57z"/></svg>
+        </span>
+        <span class="label">LINE</span>
+      </a>
+
+      <a class="action" href="mailto:dreamkeymediaasia@gmail.com">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <span class="label">Email</span>
+      </a>
+    </nav>
+
+    <!-- ABOUT / TRUST -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">About</h2>
+        <span class="section-meta"><span class="dot"></span>Dreamkey Media</span>
+      </div>
+
+      <div class="trust">
+        <div class="trust-head">
+          <img class="trust-logo" src="assets/dreamkey-logo-transparent.png" alt="Dreamkey Media" />
+        </div>
+        <h3 class="trust-headline">
+          Most venues don't need more ads. They need better <span class="gold">systems.</span>
+        </h3>
+        <p class="trust-line">
+          Content, marketing, and automation built as one growth engine for hospitality brands.
+        </p>
+        <div class="trust-stats">
+          <div>
+            <div class="stat-num">93+</div>
+            <div class="stat-label">Films<br/>produced</div>
+          </div>
+          <div>
+            <div class="stat-num">25+</div>
+            <div class="stat-label">Years in<br/>hospitality</div>
+          </div>
+          <div>
+            <div class="stat-num">3×</div>
+            <div class="stat-label">Average<br/>client ROI</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE DO -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">What we do</h2>
+        <span class="section-meta"><span class="dot"></span>One system</span>
+      </div>
+
+      <div class="services">
+        <div class="service">
+          <div class="tile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <h3>Content &amp; Film</h3>
+          <p>Cinematic films that make your venue unforgettable.</p>
+        </div>
+
+        <div class="service">
+          <div class="tile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+          </div>
+          <h3>Performance Marketing</h3>
+          <p>Meta &amp; TikTok campaigns engineered to fill tables.</p>
+        </div>
+
+        <div class="service">
+          <div class="tile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Automation Systems</h3>
+          <p>Turn attention into bookings, on autopilot.</p>
+        </div>
+
+        <div class="service">
+          <div class="tile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3>Brand Strategy</h3>
+          <p>Positioning that sets premium venues apart.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QR / CONNECT -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Connect instantly</h2>
+        <span class="section-meta"><span class="dot"></span>Tap or scan</span>
+      </div>
+
+      <div class="qr-card">
+        <div class="qr-frame">
+          <span class="qr-corner tl"></span>
+          <span class="qr-corner tr"></span>
+          <span class="qr-corner bl"></span>
+          <span class="qr-corner br"></span>
+          <canvas id="qr"></canvas>
+        </div>
+        <p class="qr-title">Scan to save my contact</p>
+        <p class="qr-sub">Works with any phone camera — adds me to your address book instantly.</p>
+        <button class="qr-cta" id="share-card" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share this card
+        </button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-key">
+        <span class="line"></span>
+        Dreamkey Media
+        <span class="line"></span>
+      </div>
+      <p class="footer-copy">
+        <a href="https://dreamkeymedia.net" target="_blank" rel="noopener">dreamkeymedia.net</a>
+        &nbsp;·&nbsp; Bangkok · Phuket · Chiang Mai
+      </p>
+    </footer>
+
+  </article>
+</main>
+
+<script>
+  const REP = {
+    nameFirst: 'Marco',
+    nameLast: 'Sager',
+    title: 'Founder & CEO',
+    org: 'Dreamkey Media',
+    phone: '+66970752722',
+    phoneDisplay: '097 075 2722',
+    email: 'dreamkeymediaasia@gmail.com',
+    lineUrl: 'https://line.me/R/ti/p/@dreamkeymedia',
+    whatsapp: '66970752722',
+    web: 'https://dreamkeymedia.net'
+  };
+
+  function buildVCard() {
+    const fn = (REP.nameFirst + (REP.nameLast ? ' ' + REP.nameLast : '')).trim();
+    const lines = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      `N:${REP.nameLast};${REP.nameFirst};;;`,
+      `FN:${fn}`,
+      `TITLE:${REP.title}`,
+      `ORG:${REP.org}`,
+      `TEL;TYPE=CELL,VOICE:${REP.phone}`,
+      `EMAIL;TYPE=INTERNET:${REP.email}`,
+      `URL:${REP.web}`,
+      `URL;TYPE=line:${REP.lineUrl}`,
+      `URL;TYPE=whatsapp:https://wa.me/${REP.whatsapp}`,
+      `NOTE:Hospitality growth systems — content, marketing, and automation. See the system: https://hostpitality.dreamkeymedia.net/`,
+      'END:VCARD'
+    ];
+    return lines.join('\r\n');
+  }
+
+  document.getElementById('save-contact').addEventListener('click', () => {
+    const vcard = buildVCard();
+    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+    const url  = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${REP.nameFirst}_DreamkeyMedia.vcf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  document.getElementById('share-card').addEventListener('click', async () => {
+    const shareData = {
+      title: `${REP.nameFirst} — ${REP.title} at ${REP.org}`,
+      text: `Connect with ${REP.nameFirst} from Dreamkey Media.`,
+      url: window.location.href
+    };
+    if (navigator.share) {
+      try { await navigator.share(shareData); } catch (e) { /* cancelled */ }
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(window.location.href);
+      const btn = document.getElementById('share-card');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Link copied';
+      setTimeout(() => { btn.innerHTML = original; }, 1800);
+    }
+  });
+
+  function renderQR() {
+    if (typeof qrcode === 'undefined') { setTimeout(renderQR, 120); return; }
+    const qr = qrcode(0, 'M');
+    qr.addData(buildVCard());
+    qr.make();
+    const canvas = document.getElementById('qr');
+    const ctx = canvas.getContext('2d');
+    const moduleCount = qr.getModuleCount();
+    const dpr = window.devicePixelRatio || 1;
+    const SIZE = 300;
+    canvas.width  = SIZE * dpr;
+    canvas.height = SIZE * dpr;
+    canvas.style.width  = '100%';
+    canvas.style.height = '100%';
+    ctx.scale(dpr, dpr);
+    const cell = SIZE / moduleCount;
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, SIZE, SIZE);
+    ctx.fillStyle = '#263056';
+    for (let r = 0; r < moduleCount; r++) {
+      for (let c = 0; c < moduleCount; c++) {
+        if (qr.isDark(r, c)) {
+          ctx.fillRect(Math.floor(c * cell), Math.floor(r * cell), Math.ceil(cell), Math.ceil(cell));
+        }
+      }
+    }
+  }
+  renderQR();
+</script>
+
+</body>
+</html>
